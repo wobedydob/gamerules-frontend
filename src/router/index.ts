@@ -6,28 +6,31 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: () => import('../views/HomeView.vue') },
     {
-      path: '/games/new',
-      name: 'game-new',
-      component: () => import('../views/GameEditView.vue'),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: '/games/:slug',
+      path: '/spel/:slug',
       name: 'game-detail',
       component: () => import('../views/GameDetailView.vue'),
       props: true,
     },
     {
-      path: '/games/:slug/edit',
+      path: '/beheer/nieuw',
+      name: 'game-new',
+      component: () => import('../views/GameEditView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/beheer/spel/:slug',
       name: 'game-edit',
       component: () => import('../views/GameEditView.vue'),
       props: true,
       meta: { requiresAuth: true },
     },
-    { path: '/login', name: 'login', component: () => import('../views/LoginView.vue') },
-    { path: '/register', name: 'register', component: () => import('../views/RegisterView.vue') },
+    { path: '/inloggen', name: 'login', component: () => import('../views/LoginView.vue') },
+    { path: '/registreren', name: 'register', component: () => import('../views/RegisterView.vue') },
   ],
-  scrollBehavior: () => ({ top: 0 }),
+  scrollBehavior(to) {
+    if (to.hash) return { el: to.hash, top: 128 }
+    return { top: 0 }
+  },
 })
 
 router.beforeEach((to) => {

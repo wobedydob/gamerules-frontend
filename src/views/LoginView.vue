@@ -17,8 +17,7 @@ async function submit() {
   error.value = null
   try {
     await auth.login(email.value, password.value)
-    const redirect = (route.query.redirect as string) || '/'
-    router.push(redirect)
+    router.push((route.query.redirect as string) || '/')
   } catch {
     error.value = 'Ongeldige e-mail of wachtwoord.'
   } finally {
@@ -29,23 +28,23 @@ async function submit() {
 
 <template>
   <div class="mx-auto max-w-sm">
-    <h1 class="mb-6 text-2xl font-bold">Inloggen</h1>
-    <form class="card space-y-4" @submit.prevent="submit">
+    <h1 class="mb-6 text-3xl font-extrabold text-ink">Inloggen</h1>
+    <form class="card space-y-4 p-6" @submit.prevent="submit">
       <div>
         <label class="label">E-mail</label>
-        <input v-model="email" type="email" class="input" required />
+        <input v-model="email" type="email" class="input" required autocomplete="email" />
       </div>
       <div>
         <label class="label">Wachtwoord</label>
-        <input v-model="password" type="password" class="input" required />
+        <input v-model="password" type="password" class="input" required autocomplete="current-password" />
       </div>
-      <p v-if="error" class="text-sm text-red-400">{{ error }}</p>
+      <p v-if="error" class="text-sm text-accent">{{ error }}</p>
       <button type="submit" class="btn-primary w-full" :disabled="busy">
         {{ busy ? 'Bezig…' : 'Inloggen' }}
       </button>
-      <p class="text-center text-sm text-gray-400">
+      <p class="text-center text-sm text-muted">
         Nog geen account?
-        <RouterLink :to="{ name: 'register' }" class="text-accent">Registreren</RouterLink>
+        <RouterLink :to="{ name: 'register' }" class="font-semibold text-accent">Registreren</RouterLink>
       </p>
     </form>
   </div>

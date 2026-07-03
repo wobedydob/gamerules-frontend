@@ -30,27 +30,27 @@ async function submit() {
 
 <template>
   <div class="mx-auto max-w-sm">
-    <h1 class="mb-6 text-2xl font-bold">Registreren</h1>
-    <form class="card space-y-4" @submit.prevent="submit">
+    <h1 class="mb-6 text-3xl font-extrabold text-ink">Registreren</h1>
+    <form class="card space-y-4 p-6" @submit.prevent="submit">
       <div>
         <label class="label">Naam</label>
-        <input v-model="displayName" class="input" required />
+        <input v-model="displayName" class="input" required autocomplete="name" />
       </div>
       <div>
         <label class="label">E-mail</label>
-        <input v-model="email" type="email" class="input" required />
+        <input v-model="email" type="email" class="input" required autocomplete="email" />
       </div>
       <div>
         <label class="label">Wachtwoord</label>
-        <input v-model="password" type="password" class="input" required minlength="8" />
+        <input v-model="password" type="password" class="input" required minlength="8" autocomplete="new-password" />
       </div>
-      <p v-if="error" class="text-sm text-red-400">{{ error }}</p>
+      <p v-if="error" class="text-sm text-accent">{{ error }}</p>
       <button type="submit" class="btn-primary w-full" :disabled="busy">
         {{ busy ? 'Bezig…' : 'Account aanmaken' }}
       </button>
-      <p class="text-center text-sm text-gray-400">
+      <p class="text-center text-sm text-muted">
         Al een account?
-        <RouterLink :to="{ name: 'login' }" class="text-accent">Inloggen</RouterLink>
+        <RouterLink :to="{ name: 'login' }" class="font-semibold text-accent">Inloggen</RouterLink>
       </p>
     </form>
   </div>

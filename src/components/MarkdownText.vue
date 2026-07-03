@@ -9,5 +9,5 @@ const html = computed(() => (props.text ? (marked.parse(props.text) as string) :
 </script>
 
 <template>
-  <div class="prose-rules text-sm text-gray-300" v-html="html"></div>
+  <div class="prose-rules text-sm text-muted" v-html="html"></div>
 </template>

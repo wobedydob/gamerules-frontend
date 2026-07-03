@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---- Design tokens (light default) ---- */
+:root {
+  --surface: #f6f2ee;
+  --surface-alt: #faf7f2;
+  --card: #ffffff;
+  --border-hair: #ece3d7;
+  --border-card: #efe6da;
+  --border-chunky: #e0d3c0;
+  --text: #2b2320;
+  --text-body: #4a4039;
+  --text-muted: #7c6f65;
+  --text-faint: #a8968a;
+  --accent: #c93a56;
+  --accent-tint: #fbeef0;
+  --cat-bg: #dfeee6;
+  --cat-border: #bcdccb;
+  --cat-text: #2e7d5b;
+  --stripe-a: #efe6da;
+  --stripe-b: #e8dccd;
+  color-scheme: light;
+}
+
+.dark {
+  --surface: #211c19;
+  --surface-alt: #2b2521;
+  --card: #2b2521;
+  --border-hair: #3a332d;
+  --border-card: #3a332d;
+  --border-chunky: #48403a;
+  --text: #f3ede6;
+  --text-body: #d8cec4;
+  --text-muted: #b6a89c;
+  --text-faint: #8a7d73;
+  --accent: #e8607a;
+  --accent-tint: #3a2529;
+  --cat-bg: #22352b;
+  --cat-border: #35513f;
+  --cat-text: #6cc79a;
+  --stripe-a: #322b26;
+  --stripe-b: #3a332d;
+  color-scheme: dark;
+}
+
 @layer base {
   html,
   body,
@@ -9,41 +52,86 @@
     @apply h-full;
   }
   body {
-    @apply bg-surface text-gray-100 antialiased;
-    font-family: Inter, system-ui, -apple-system, sans-serif;
+    @apply bg-surface text-body antialiased;
+    font-family: Figtree, system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    line-height: 1.1;
+  }
+  * {
+    scroll-margin-top: 128px;
   }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-150;
   }
   .btn-primary {
-    @apply btn bg-accent text-black hover:bg-amber-400;
+    @apply btn bg-accent text-white hover:brightness-105 active:brightness-95;
   }
   .btn-ghost {
-    @apply btn border border-border text-gray-200 hover:bg-card;
+    @apply btn border border-chunky bg-card text-ink hover:border-accent;
+  }
+  .btn-icon {
+    @apply inline-flex h-9 w-9 items-center justify-center rounded-full border border-chunky bg-card text-muted transition-colors hover:border-accent hover:text-accent;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+  .chip-players {
+    @apply chip bg-tint text-accent;
+  }
+  .chip-time {
+    @apply chip;
+    background: var(--surface-alt);
+    color: var(--text-muted);
   }
   .input {
-    @apply w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-gray-100 outline-none focus:border-accent;
+    @apply w-full rounded-item border border-card-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-faint focus:border-accent;
   }
   .card {
-    @apply rounded-xl border border-border bg-card p-5;
+    @apply rounded-card border border-card-line bg-card;
   }
   .label {
-    @apply mb-1 block text-sm font-medium text-gray-300;
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+  /* Diagonal striped cover placeholder */
+  .cover-placeholder {
+    background: repeating-linear-gradient(
+      135deg,
+      var(--stripe-a),
+      var(--stripe-a) 8px,
+      var(--stripe-b) 8px,
+      var(--stripe-b) 16px
+    );
   }
   /* Rendered markdown */
   .prose-rules :where(p) {
     @apply my-1 leading-relaxed;
   }
-  .prose-rules :where(ul) {
+  .prose-rules :where(ul, ol) {
     @apply my-1 list-disc pl-5;
   }
   .prose-rules :where(strong) {
-    @apply font-semibold text-white;
+    @apply font-semibold text-ink;
   }
   .prose-rules :where(a) {
     @apply text-accent underline;
   }
+  .prose-rules :where(code) {
+    @apply rounded bg-surface-alt px-1 py-0.5 text-xs;
+  }
+}
+
+/* Hide scrollbar on the sticky section nav while keeping it scrollable */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
