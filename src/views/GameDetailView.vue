@@ -180,7 +180,7 @@ async function remove() {
             <span
               class="flex h-9 w-9 shrink-0 items-center justify-center rounded-tile"
               :class="
-                sectionKind(section.title).isCards
+                section.type === 'cards'
                   ? 'border border-cat-line bg-cat text-cat-text'
                   : 'bg-tint text-accent'
               "
@@ -197,7 +197,7 @@ async function remove() {
 
           <!-- Card-grid mode ("Kaarten" sections) -->
           <div
-            v-if="sectionKind(section.title).isCards && filterItems(section).length"
+            v-if="section.type === 'cards' && filterItems(section).length"
             class="grid grid-cols-2 gap-2.5 min-[900px]:grid-cols-3"
           >
             <div

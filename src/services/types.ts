@@ -16,9 +16,12 @@ export interface Item {
   sortOrder: number
 }
 
+export type SectionType = 'list' | 'cards'
+
 export interface Section {
   id: number
   title: string
+  type: SectionType
   body: string | null
   sortOrder: number
   items: Item[]
@@ -40,6 +43,7 @@ export interface ItemWrite {
 
 export interface SectionWrite {
   title: string
+  type: SectionType
   body: string | null
   sortOrder: number
   items: ItemWrite[]
