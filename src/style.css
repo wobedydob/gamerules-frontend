@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #app {
+    @apply h-full;
+  }
+  body {
+    @apply bg-surface text-gray-100 antialiased;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-black hover:bg-amber-400;
+  }
+  .btn-ghost {
+    @apply btn border border-border text-gray-200 hover:bg-card;
+  }
+  .input {
+    @apply w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-gray-100 outline-none focus:border-accent;
+  }
+  .card {
+    @apply rounded-xl border border-border bg-card p-5;
+  }
+  .label {
+    @apply mb-1 block text-sm font-medium text-gray-300;
+  }
+  /* Rendered markdown */
+  .prose-rules :where(p) {
+    @apply my-1 leading-relaxed;
+  }
+  .prose-rules :where(ul) {
+    @apply my-1 list-disc pl-5;
+  }
+  .prose-rules :where(strong) {
+    @apply font-semibold text-white;
+  }
+  .prose-rules :where(a) {
+    @apply text-accent underline;
+  }
+}
