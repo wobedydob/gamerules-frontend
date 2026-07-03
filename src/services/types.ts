@@ -28,6 +28,8 @@ export interface Section {
 }
 
 export interface GameDetail extends GameSummary {
+  quickSetup: string | null
+  playerRules: string | null
   createdByDisplayName: string | null
   updatedAt: string
   sections: Section[]
@@ -56,6 +58,8 @@ export interface GameWrite {
   minPlayers: number | null
   maxPlayers: number | null
   playTimeMinutes: number | null
+  quickSetup: string | null
+  playerRules: string | null
   sections: SectionWrite[]
 }
 

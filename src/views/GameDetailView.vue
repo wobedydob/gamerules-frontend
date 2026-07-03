@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import { ArrowLeft, Pencil, Search, Trash2, Users, Clock } from 'lucide-vue-next'
+import { ArrowLeft, Clock, PackageOpen, Pencil, Search, Trash2, Users } from 'lucide-vue-next'
 import { gamesApi } from '../services/games'
 import type { GameDetail, Section } from '../services/types'
 import { useAuthStore } from '../stores/auth'
@@ -138,6 +138,25 @@ async function remove() {
         </button>
       </div>
     </header>
+
+    <!-- Quick setup + per-player rules -->
+    <section
+      v-if="game.quickSetup || game.playerRules"
+      class="mb-6 grid gap-5 rounded-card border border-card-line bg-surface-alt p-5 sm:grid-cols-2"
+    >
+      <div v-if="game.quickSetup">
+        <h2 class="mb-2 flex items-center gap-2 text-xs font-extrabold uppercase tracking-wide text-accent">
+          <PackageOpen :size="16" /> Zo leg je klaar
+        </h2>
+        <MarkdownText :text="game.quickSetup" />
+      </div>
+      <div v-if="game.playerRules">
+        <h2 class="mb-2 flex items-center gap-2 text-xs font-extrabold uppercase tracking-wide text-accent">
+          <Users :size="16" /> Per aantal spelers
+        </h2>
+        <MarkdownText :text="game.playerRules" />
+      </div>
+    </section>
 
     <!-- In-game search -->
     <div v-if="game.sections.length" class="relative mb-6">

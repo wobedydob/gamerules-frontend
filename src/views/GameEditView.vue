@@ -34,6 +34,8 @@ const game = reactive({
   minPlayers: null as number | null,
   maxPlayers: null as number | null,
   playTimeMinutes: null as number | null,
+  quickSetup: '',
+  playerRules: '',
 })
 const sections = reactive<EditSection[]>([])
 
@@ -76,6 +78,8 @@ function serialize(): GameWrite {
     minPlayers: game.minPlayers,
     maxPlayers: game.maxPlayers,
     playTimeMinutes: game.playTimeMinutes,
+    quickSetup: game.quickSetup || null,
+    playerRules: game.playerRules || null,
     sections: sections.map((s, si) => ({
       title: s.title,
       type: s.type,
@@ -155,6 +159,8 @@ async function loadForEdit(slug: string) {
     game.minPlayers = g.minPlayers
     game.maxPlayers = g.maxPlayers
     game.playTimeMinutes = g.playTimeMinutes
+    game.quickSetup = g.quickSetup ?? ''
+    game.playerRules = g.playerRules ?? ''
     sections.splice(
       0,
       sections.length,
@@ -340,6 +346,16 @@ onMounted(() => {
               <label class="label">Duur (min)</label>
               <input v-model.number="game.playTimeMinutes" type="number" min="1" class="input" />
             </div>
+          </div>
+          <div>
+            <label class="label">Zo leg je klaar (markdown, optioneel)</label>
+            <textarea v-model="game.quickSetup" class="input" rows="3" placeholder="Kort: hoe leg je het spel klaar?" />
+            <MarkdownText v-if="game.quickSetup" :text="game.quickSetup" class="mt-2 rounded-item bg-surface-alt p-2.5" />
+          </div>
+          <div>
+            <label class="label">Per aantal spelers (markdown, optioneel)</label>
+            <textarea v-model="game.playerRules" class="input" rows="4" placeholder="Bijv. **2 spelers:** … / **3 spelers:** …" />
+            <MarkdownText v-if="game.playerRules" :text="game.playerRules" class="mt-2 rounded-item bg-surface-alt p-2.5" />
           </div>
         </div>
 
